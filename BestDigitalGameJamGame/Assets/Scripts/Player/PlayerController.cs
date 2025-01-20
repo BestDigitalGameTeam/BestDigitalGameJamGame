@@ -3,11 +3,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerControllerHard : MonoBehaviour
+public class PlayerController : MonoBehaviour
 {
     public float fMoveSpeed;
     public float fJumpForce;
-    public float fStandUpSpeed;
     public GameObject PlayerBottomOrigin;
 
     private Rigidbody PlayerBody;
@@ -31,12 +30,10 @@ public class PlayerControllerHard : MonoBehaviour
         {
             PlayerBody.AddForce(new Vector3(0,fJumpForce,0), ForceMode.Impulse);
         }
-        
-        // TO GET WORKING
-        if (Input.GetKeyDown(KeyCode.LeftControl)) // not yet working
+
+        if (Input.GetKeyDown(KeyCode.LeftControl))
         {
-            Vector3 newRotationDirection = Vector3.RotateTowards(transform.TransformDirection(0, 1, 0), new Vector3(PlayerBottomOrigin.transform.position.x, 10, PlayerBottomOrigin.transform.position.z), fStandUpSpeed * Time.deltaTime, 0.0f);
-            PlayerBottomOrigin.transform.rotation = Quaternion.LookRotation(newRotationDirection);
+
         }
 
         Vector3 MoveVelocity = PlayerCamera.transform.TransformDirection(MoveDir) * (fRealMoveSpeed * Time.deltaTime);
