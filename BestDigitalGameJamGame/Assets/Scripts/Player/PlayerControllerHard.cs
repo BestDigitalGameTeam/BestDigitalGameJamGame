@@ -7,7 +7,8 @@ public class PlayerControllerHard : MonoBehaviour
 {
     public float fMoveSpeed;
     public float fJumpForce;
-    public float fStandUpSpeed;
+    private float fStandUpSpeed = 1.0f;
+    private float fStandUpPos = 0.0f;
     public GameObject PlayerBottomOrigin;
 
     private Rigidbody PlayerBody;
@@ -33,10 +34,23 @@ public class PlayerControllerHard : MonoBehaviour
         }
         
         // TO GET WORKING
-        if (Input.GetKeyDown(KeyCode.LeftControl)) // not yet working
+        if (Input.GetKey(KeyCode.LeftControl)) // not yet working
         {
-            Vector3 newRotationDirection = Vector3.RotateTowards(transform.TransformDirection(0, 1, 0), new Vector3(PlayerBottomOrigin.transform.position.x, 10, PlayerBottomOrigin.transform.position.z), fStandUpSpeed * Time.deltaTime, 0.0f);
-            PlayerBottomOrigin.transform.rotation = Quaternion.LookRotation(newRotationDirection);
+            // stand up speed in seconds
+            // add to stand up pos for lerp
+            fStandUpPos += fStandUpSpeed * Time.deltaTime;
+            Debug.Log(fStandUpPos);
+
+            //Vector3 newRotationDirection = Vector3.RotateTowards(Vector3.Normalize(transform.TransformDirection(0, 10, 0)), Vector3.Normalize(Vector3.up), fRotationPerFrame, 0.0f);
+            Vector3 newRotationDirection = Vector3.Lerp(Vector3.Normalize(PlayerBody.transform.up), Vector3.Normalize(Vector3.up), fStandUpPos);
+
+            // Draw a ray pointing at target direction
+            Debug.DrawRay(PlayerBottomOrigin.transform.position, newRotationDirection, Color.red, 0.0f);
+            //Debug.DrawRay(PlayerBottomOrigin.transform.position, PlayerBody.transform.up, Color.green, 0.0f);
+            //Debug.DrawRay(PlayerBottomOrigin.transform.position, Vector3.up, Color.blue, 0.0f);
+
+            PlayerBottomOrigin.transform.rotation = Quaternion.FromToRotation(PlayerBody.transform.up, newRotationDirection);
+            //PlayerBottomOrigin.transform.rotation = Quaternion.LookRotation(PlayerBody.transform.up, newRotationDirection);
         }
 
         Vector3 MoveVelocity = PlayerCamera.transform.TransformDirection(MoveDir) * (fRealMoveSpeed * Time.deltaTime);
