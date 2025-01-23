@@ -9,9 +9,8 @@ public class PlayerControllerHard : MonoBehaviour
     public float fJumpForce;
     public float fGravityForce;
 
-    private float fStandUpSpeed = 1.0f;
+    private float fStandUpSpeed = 0.50f;
     private float fStandUpPos = 0.0f;
-    public GameObject PlayerObject;
 
     private Rigidbody PlayerBody;
     public Camera PlayerCamera;
@@ -39,7 +38,7 @@ public class PlayerControllerHard : MonoBehaviour
         }
         
         // PLAYER CAN STAND UP
-        if (Input.GetKey(KeyCode.LeftControl) && fStandUpPos < 1.0f) // not yet working
+        if (Input.GetKey(KeyCode.LeftControl) && fStandUpPos < fStandUpSpeed) // not yet working
         {
             //// stand up speed in seconds
             //// add to stand up pos for lerp
@@ -52,7 +51,7 @@ public class PlayerControllerHard : MonoBehaviour
             // new up vector direction
             Vector3 newDirection;
 
-            if (fStandUpPos >= 1.0f)
+            if (fStandUpPos >= fStandUpSpeed)
             {
                 newDirection = Vector3.up;
             }
