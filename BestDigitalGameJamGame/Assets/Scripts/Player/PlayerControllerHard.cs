@@ -15,6 +15,7 @@ public class PlayerControllerHard : MonoBehaviour
     private Rigidbody PlayerBody;
     public Camera PlayerCamera;
     private CapsuleCollider PlayerCollider;
+    private SphereCollider PlayerInteractionCollider;
     private LayerMask GroundedMask;
     
     void Start()
@@ -22,19 +23,21 @@ public class PlayerControllerHard : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
         PlayerBody = gameObject.GetComponentInChildren<Rigidbody>();
         PlayerCollider = gameObject.GetComponentInChildren<CapsuleCollider>(); //If other capsule colliders are added to the player this will break
-
-        // Adjust the position of PlayerBottomOrigin to be at the bottom of PlayerBody capsule
-        //PlayerBottomOrigin.transform.position = PlayerBody.transform.position - (PlayerBody.transform.up * PlayerBody.GetComponent<Collider>().bounds.extents.y);
+        PlayerInteractionCollider = gameObject.GetComponentInChildren<SphereCollider>(); //If other sphere colliders are added to the player this will break
     }
     
     void Update()
     {
+
+        // pivot point at base of player capsule
+        Vector3 v3PivotPoint = (PlayerBody.transform.position - (PlayerBody.transform.up * PlayerBody.GetComponent<Collider>().bounds.extents.y));
+
         Vector3 MoveDir = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
-        float fRealMoveSpeed = Input.GetKey(KeyCode.LeftShift) ? fMoveSpeed * 2 : fMoveSpeed; // Double move speed when 'sprinting'
+        float fRealMoveSpeed = Input.GetKey(KeyCode.LeftShift) ? fMoveSpeed * 1.5f : fMoveSpeed; // increase move speed when sprinting
         
-        if (Input.GetKeyDown(KeyCode.Space) && Physics.Raycast(PlayerCollider.ClosestPoint(new Vector3(transform.position.x,0,transform.position.z)), Vector3.down, 0.5f, LayerMask.NameToLayer("Respawn"))) //TODO Fix collision layers
+        if (Input.GetKeyDown(KeyCode.Space) && Physics.Raycast(PlayerCollider.ClosestPoint(new Vector3(v3PivotPoint.x, 0, v3PivotPoint.z)), Vector3.down, 0.5f, LayerMask.NameToLayer("Respawn"))) //TODO Fix collision layers
         {
-            PlayerBody.AddForce(new Vector3(0, fJumpForce,0), ForceMode.Impulse);
+            PlayerBody.AddForce(new Vector3(0, fJumpForce, 0), ForceMode.Impulse);
         }
         
         // PLAYER CAN STAND UP
@@ -44,9 +47,6 @@ public class PlayerControllerHard : MonoBehaviour
             //// add to stand up pos for lerp
             //// if it exceeds 1, clamp to 1
             fStandUpPos += fStandUpSpeed * Time.deltaTime;
-
-            // pivot point at base of player capsule
-            Vector3 v3PivotPoint = (PlayerBody.transform.position - (PlayerBody.transform.up * PlayerBody.GetComponent<Collider>().bounds.extents.y));
 
             // new up vector direction
             Vector3 newDirection;
