@@ -23,7 +23,7 @@ public class RespawnScript : MonoBehaviour
         }
     }
 
-    private void Respawn()//respawn function
+    public void Respawn()//respawn function
     {
             //move player to current checkpoint
             Player.transform.position = Checkpoint.transform.GetChild(0).gameObject.transform.position;
