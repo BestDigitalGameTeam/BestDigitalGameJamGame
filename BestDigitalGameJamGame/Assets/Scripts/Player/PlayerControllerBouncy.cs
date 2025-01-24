@@ -21,13 +21,29 @@ public class PlayerControllerBouncy : MonoBehaviour
     
     void Update()
     {
-        Vector3 MoveDir = new Vector3(Input.GetAxis("Horizontal"), 0,Input.GetAxis("Vertical"));
+        Vector3 MoveDir = new Vector3(0, 0,Input.GetAxis("Vertical"));
         float fRealMoveSpeed = Input.GetKey(KeyCode.LeftShift) ? fMoveSpeed*2 : fMoveSpeed; // Double move speed when 'sprinting'
         
-        if (Input.GetKeyDown(KeyCode.Space) &&Physics.Raycast(PlayerCollider.ClosestPoint(new Vector3(transform.position.x,0,transform.position.z)), Vector3.down, 0.5f, LayerMask.NameToLayer("Respawn"))) //TODO Fix collision layers
+        if (Input.GetKeyDown(KeyCode.Space) && Physics.Raycast(PlayerCollider.ClosestPoint(new Vector3(transform.position.x,0,transform.position.z)), Vector3.down, 0.5f, LayerMask.NameToLayer("Respawn"))) //TODO Fix collision layers
         {
             PlayerBody.AddForce(new Vector3(0,fJumpForce,0), ForceMode.Impulse);
         }
+
+        float CameraRotation = PlayerCamera.transform.rotation.eulerAngles.y;
+        float PlayerRotation = PlayerBody.transform.rotation.eulerAngles.y;
+
+        if (MoveDir.z >= 0.05)//If trying to roll
+        {
+            if (Mathf.Abs(PlayerRotation - CameraRotation) <= 90)
+            {
+                //Rotate Anti-clockwise/ subtract rotation
+            }
+            else
+            {
+                //Rotate Clockwise / Add rotation
+            }
+        }
+        
         Vector3 MoveVelocity = PlayerCamera.transform.TransformDirection(MoveDir) * (fRealMoveSpeed * Time.deltaTime);
         PlayerBody.velocity = new Vector3(MoveVelocity.x, PlayerBody.velocity.y, MoveVelocity.z);
         
