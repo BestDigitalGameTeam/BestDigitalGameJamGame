@@ -4,31 +4,14 @@ using UnityEngine;
 
 public class CheckpointScript : MonoBehaviour
 {
-    private RespawnScript respawn;
+    public RespawnScript respawn;//the death plane incharge of respawning
 
-    private void Awake()
-    {
-        respawn = GameObject.FindGameObjectWithTag("Respawn").GetComponent<RespawnScript>();
-    }
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerEnter(Collider other)//if the player touches the collider, set the new checkpoint to this one
     {
         if(other.gameObject.CompareTag("Player"))
         {
-            respawn.respawnPoint = this.gameObject;
-            Debug.Log("spawn changed");
+            Debug.Log("Touched!");
+            respawn.Checkpoint = this.gameObject;
         }
     }
 }
