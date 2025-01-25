@@ -9,7 +9,7 @@ public class PlayerControllerHard : MonoBehaviour
     public float fJumpForce;
     public float fGravityForce;
 
-    private float fStandUpSpeed = 0.50f;
+    private float fStandUpSpeed = 2.0f;
     private float fStandUpPos = 0.0f;
 
     private Rigidbody PlayerBody;
@@ -28,7 +28,6 @@ public class PlayerControllerHard : MonoBehaviour
     
     void Update()
     {
-
         // pivot point at base of player capsule
         Vector3 v3PivotPoint = (PlayerBody.transform.position - (PlayerBody.transform.up * PlayerBody.GetComponent<Collider>().bounds.extents.y));
 
@@ -78,5 +77,10 @@ public class PlayerControllerHard : MonoBehaviour
         
         transform.position = PlayerBody.position;
         transform.rotation = PlayerBody.rotation;
+    }
+
+    public bool PlayerIsUpright()
+    {
+        return (Vector3.Angle(PlayerBody.transform.up, Vector3.up) < 5);
     }
 }
