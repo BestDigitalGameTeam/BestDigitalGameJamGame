@@ -9,7 +9,7 @@ public class WaterScript : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)//if player touches death plane, respawn them at current checkpoint
     {
-        if(other.gameObject.CompareTag("Player"))
+        if(other.gameObject.CompareTag("Wick"))
         {
             RespawnController.Respawn();
         }
