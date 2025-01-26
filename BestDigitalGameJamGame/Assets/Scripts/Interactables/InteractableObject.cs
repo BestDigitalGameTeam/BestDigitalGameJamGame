@@ -13,12 +13,6 @@ public class InteractableObject : MonoBehaviour
         ObjectCollider = GetComponent<Collider>();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     protected void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player") || other.transform.parent.CompareTag("Player"))

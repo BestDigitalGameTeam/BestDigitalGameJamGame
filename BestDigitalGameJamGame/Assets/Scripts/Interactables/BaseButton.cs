@@ -8,12 +8,6 @@ public class BaseButton : InteractableObject
 
     public List<GameObject> ConnectedObjects = new List<GameObject>();
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
     // Update is called once per frame
     void Update()
     {
@@ -30,6 +24,17 @@ public class BaseButton : InteractableObject
         {
             Debug.Log("Player has pressed button!");
             bPlayerInteracting = false;
+
+            //when the button is pressed, iterate through listeners
+            foreach (GameObject listener in ConnectedObjects)
+            {
+                //check if it should toggle
+                if(!listener.GetComponent<ButtonListener>().Triggered || listener.GetComponent<ButtonListener>().Toggleable)
+                {
+                    //toggle it
+                    listener.GetComponent<ButtonListener>().Triggered = !listener.GetComponent<ButtonListener>().Triggered;
+                }            
+            }
         }
     }
 }
