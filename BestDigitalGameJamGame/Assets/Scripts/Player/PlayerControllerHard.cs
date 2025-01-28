@@ -7,8 +7,8 @@ public class PlayerControllerHard : MonoBehaviour
 {
     public float fMoveSpeed;
     public float fJumpForce;
-    public float fGravityForce;
-
+    public float fRollSpeed;
+    
     private float fStandUpSpeed = 0.50f;
     private float fStandUpPos = 0.0f;
 
@@ -28,7 +28,6 @@ public class PlayerControllerHard : MonoBehaviour
     
     void Update()
     {
-
         // pivot point at base of player capsule
         Vector3 v3PivotPoint = (PlayerBody.transform.position - (PlayerBody.transform.up * PlayerBody.GetComponent<Collider>().bounds.extents.y));
 
@@ -72,11 +71,20 @@ public class PlayerControllerHard : MonoBehaviour
                 fStandUpPos = 0.0f; 
             }
         }
-
+        
         Vector3 MoveVelocity = PlayerCamera.transform.TransformDirection(MoveDir) * (fRealMoveSpeed * Time.deltaTime);
         PlayerBody.velocity = new Vector3(MoveVelocity.x, PlayerBody.velocity.y, MoveVelocity.z);
         
         transform.position = PlayerBody.position;
-        transform.rotation = PlayerBody.rotation;
+        
+        if (MoveDir.z != 0f)//If trying to roll
+        {
+            Debug.Log("A");
+            //TODO Add horizontal support
+            Vector3 moveDirection = PlayerCamera.transform.forward;
+            moveDirection.y = 0;
+            Quaternion targetRotation = Quaternion.LookRotation(moveDirection, Vector3.left);
+            PlayerBody.transform.rotation = Quaternion.Lerp(PlayerBody.transform.rotation, targetRotation, fRollSpeed * Time.deltaTime);
+        }
     }
 }

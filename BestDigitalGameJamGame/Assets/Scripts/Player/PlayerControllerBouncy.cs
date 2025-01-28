@@ -7,6 +7,7 @@ public class PlayerControllerBouncy : MonoBehaviour
 {
     public float fMoveSpeed;
     public float fJumpForce;
+    public float fRollSpeed;
     private Rigidbody PlayerBody;
     public Camera PlayerCamera;
     private CapsuleCollider PlayerCollider;
@@ -29,19 +30,14 @@ public class PlayerControllerBouncy : MonoBehaviour
             PlayerBody.AddForce(new Vector3(0,fJumpForce,0), ForceMode.Impulse);
         }
 
-        float CameraRotation = PlayerCamera.transform.rotation.eulerAngles.y;
-        float PlayerRotation = PlayerBody.transform.rotation.eulerAngles.y;
-
-        if (MoveDir.z >= 0.05)//If trying to roll
+        if (MoveDir.z != 0f)//If trying to roll
         {
-            if (Mathf.Abs(PlayerRotation - CameraRotation) <= 90)
-            {
-                //Rotate Anti-clockwise/ subtract rotation
-            }
-            else
-            {
-                //Rotate Clockwise / Add rotation
-            }
+            Vector3 moveDirection = PlayerCamera.transform.forward;
+            moveDirection.y = 0;
+            
+            Quaternion targetRotation = Quaternion.LookRotation(moveDirection, Vector3.left);
+            
+            PlayerBody.transform.rotation = Quaternion.Lerp(PlayerBody.transform.rotation, targetRotation, fRollSpeed * Time.deltaTime);
         }
         
         Vector3 MoveVelocity = PlayerCamera.transform.TransformDirection(MoveDir) * (fRealMoveSpeed * Time.deltaTime);

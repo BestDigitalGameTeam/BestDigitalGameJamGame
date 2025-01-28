@@ -339,33 +339,37 @@ PrefabInstance:
       propertyPath: m_Name
       value: CinemachineBrain
       objectReference: {fileID: 0}
+    - target: {fileID: 3201702340602699607, guid: 50de9677ac6387a4ca702c35b739c6e0, type: 3}
+      propertyPath: field of view
+      value: 50
+      objectReference: {fileID: 0}
     - target: {fileID: 7595658801407793680, guid: 50de9677ac6387a4ca702c35b739c6e0, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 3.5963035
       objectReference: {fileID: 0}
     - target: {fileID: 7595658801407793680, guid: 50de9677ac6387a4ca702c35b739c6e0, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2.75
+      value: 5.5
       objectReference: {fileID: 0}
     - target: {fileID: 7595658801407793680, guid: 50de9677ac6387a4ca702c35b739c6e0, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -4
+      value: -8.250249
       objectReference: {fileID: 0}
     - target: {fileID: 7595658801407793680, guid: 50de9677ac6387a4ca702c35b739c6e0, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.9809198
+      value: 0.96277046
       objectReference: {fileID: 0}
     - target: {fileID: 7595658801407793680, guid: 50de9677ac6387a4ca702c35b739c6e0, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.19189261
+      value: 0.17725731
       objectReference: {fileID: 0}
     - target: {fileID: 7595658801407793680, guid: 50de9677ac6387a4ca702c35b739c6e0, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.030623848
+      value: -0.20071685
       objectReference: {fileID: 0}
     - target: {fileID: 7595658801407793680, guid: 50de9677ac6387a4ca702c35b739c6e0, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.0059907963
+      value: 0.036954317
       objectReference: {fileID: 0}
     - target: {fileID: 7595658801407793680, guid: 50de9677ac6387a4ca702c35b739c6e0, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -395,14 +399,6 @@ PrefabInstance:
     - target: {fileID: 819140645571332306, guid: 60cb6308cae10ec49854a486165722f4, type: 3}
       propertyPath: m_Name
       value: Player
-      objectReference: {fileID: 0}
-    - target: {fileID: 1426430096889175203, guid: 60cb6308cae10ec49854a486165722f4, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 0.978251
-      objectReference: {fileID: 0}
-    - target: {fileID: 1426430096889175203, guid: 60cb6308cae10ec49854a486165722f4, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0.20742467
       objectReference: {fileID: 0}
     - target: {fileID: 2622683865737670860, guid: 60cb6308cae10ec49854a486165722f4, type: 3}
       propertyPath: m_LocalPosition.x
