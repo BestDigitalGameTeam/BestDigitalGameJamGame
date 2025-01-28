@@ -8,7 +8,6 @@ public class CheckpointScript : InteractableObject
 
     protected override void InteractWithPlayer(Collider PlayerCollider)
     {
-        Debug.Log("Touched!");
         respawn.Checkpoint = this.gameObject;
     }
 }

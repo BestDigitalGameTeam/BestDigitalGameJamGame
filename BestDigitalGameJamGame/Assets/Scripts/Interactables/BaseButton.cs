@@ -18,8 +18,6 @@ public class BaseButton : InteractableObject
     {
         m_PlayerCollider = PlayerCollider;
 
-        Debug.Log(PlayerCollider.GetComponentInParent<PlayerControllerHard>().PlayerIsUpright());
-
         if (PlayerCollider.GetComponentInParent<PlayerControllerHard>().PlayerIsUpright())
         {
             Debug.Log("Player has pressed button!");
@@ -28,12 +26,8 @@ public class BaseButton : InteractableObject
             //when the button is pressed, iterate through listeners
             foreach (GameObject listener in ConnectedObjects)
             {
-                //check if it should toggle
-                if(!listener.GetComponent<ButtonListener>().Triggered || listener.GetComponent<ButtonListener>().Toggleable)
-                {
-                    //toggle it
-                    listener.GetComponent<ButtonListener>().Triggered = !listener.GetComponent<ButtonListener>().Triggered;
-                }            
+                // Tell listener that button has been pressed
+                listener.GetComponent<iButtonListener>().ButtonPressed();
             }
         }
     }

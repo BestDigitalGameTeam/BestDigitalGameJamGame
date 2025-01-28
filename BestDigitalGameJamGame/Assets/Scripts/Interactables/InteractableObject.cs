@@ -18,6 +18,7 @@ public class InteractableObject : MonoBehaviour
         if (other.CompareTag("Player") || other.transform.parent.CompareTag("Player"))
         {
             bPlayerInteracting = true;
+            Debug.Log("Player can interact with object!");
             InteractWithPlayer(other);
         }
     }
